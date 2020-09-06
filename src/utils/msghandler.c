@@ -599,14 +599,26 @@ enum {
     UCI_NO_VHT_SUPPORT,
     UCI_RSSI,
     UCI_LOW_RSSI,
+    UCI_RCPI,
+    UCI_LOW_RCPI,
+    UCI_RSNI,
+    UCI_LOW_RSNI,
     UCI_CHAN_UTIL,
     UCI_MAX_CHAN_UTIL,
     UCI_RSSI_VAL,
     UCI_LOW_RSSI_VAL,
+    UCI_RCPI_VAL,
+    UCI_LOW_RCPI_VAL,
+    UCI_RSNI_VAL,
+    UCI_LOW_RSNI_VAL,
     UCI_CHAN_UTIL_VAL,
     UCI_MAX_CHAN_UTIL_VAL,
     UCI_RSSI_WEIGHT,
     UCI_RSSI_CENTER,
+    UCI_RCPI_WEIGHT,
+    UCI_RCPI_CENTER,
+    UCI_RSNI_WEIGHT,
+    UCI_RSNI_CENTER,
     __UCI_BAND_METRIC_MAX
 };
 
@@ -660,12 +672,24 @@ static const struct blobmsg_policy uci_band_metric_policy[__UCI_METRIC_MAX] = {
         [UCI_RSSI_VAL] = {.name = "rssi_val", .type = BLOBMSG_TYPE_INT32},
         [UCI_LOW_RSSI] = {.name = "low_rssi", .type = BLOBMSG_TYPE_INT32},
         [UCI_LOW_RSSI_VAL] = {.name = "low_rssi_val", .type = BLOBMSG_TYPE_INT32},
+        [UCI_RCPI] = {.name = "rcpi", .type = BLOBMSG_TYPE_INT32},
+        [UCI_RCPI_VAL] = {.name = "rcpi_val", .type = BLOBMSG_TYPE_INT32},
+        [UCI_LOW_RCPI] = {.name = "low_rcpi", .type = BLOBMSG_TYPE_INT32},
+        [UCI_LOW_RCPI_VAL] = {.name = "low_rcpi_val", .type = BLOBMSG_TYPE_INT32},
+        [UCI_RSNI] = {.name = "rsni", .type = BLOBMSG_TYPE_INT32},
+        [UCI_RSNI_VAL] = {.name = "rsni_val", .type = BLOBMSG_TYPE_INT32},
+        [UCI_LOW_RSNI] = {.name = "low_rsni", .type = BLOBMSG_TYPE_INT32},
+        [UCI_LOW_RSNI_VAL] = {.name = "low_rsni_val", .type = BLOBMSG_TYPE_INT32},
         [UCI_CHAN_UTIL] = {.name = "chan_util", .type = BLOBMSG_TYPE_INT32},
         [UCI_MAX_CHAN_UTIL] = {.name = "max_chan_util", .type = BLOBMSG_TYPE_INT32},
         [UCI_CHAN_UTIL_VAL] = {.name = "chan_util_val", .type = BLOBMSG_TYPE_INT32},
         [UCI_MAX_CHAN_UTIL_VAL] = {.name = "max_chan_util_val", .type = BLOBMSG_TYPE_INT32},
         [UCI_RSSI_WEIGHT] = {.name = "rssi_weight", .type = BLOBMSG_TYPE_INT32},
         [UCI_RSSI_CENTER] = {.name = "rssi_center", .type = BLOBMSG_TYPE_INT32},
+        [UCI_RCPI_WEIGHT] = {.name = "rcpi_weight", .type = BLOBMSG_TYPE_INT32},
+        [UCI_RCPI_CENTER] = {.name = "rcpi_center", .type = BLOBMSG_TYPE_INT32},
+        [UCI_RSNI_WEIGHT] = {.name = "rsni_weight", .type = BLOBMSG_TYPE_INT32},
+        [UCI_RSNI_CENTER] = {.name = "rsni_center", .type = BLOBMSG_TYPE_INT32},
 };
 
 static const struct blobmsg_policy uci_times_policy[__UCI_TIMES_MAX] = {
@@ -802,6 +826,30 @@ static int handle_uci_config(struct blob_attr* msg) {
         sprintf(cmd_buffer, "dawn.%s.low_rssi=%d", band_name, blobmsg_get_u32(tb_band_metric[UCI_LOW_RSSI]));
         uci_set_network(cmd_buffer);
 
+        sprintf(cmd_buffer, "dawn.%s.rcpi=%d", band_name, blobmsg_get_u32(tb_band_metric[UCI_RCPI]));
+        uci_set_network(cmd_buffer);
+
+        sprintf(cmd_buffer, "dawn.%s.rcpi_val=%d", band_name, blobmsg_get_u32(tb_band_metric[UCI_RCPI_VAL]));
+        uci_set_network(cmd_buffer);
+
+        sprintf(cmd_buffer, "dawn.%s.low_rcpi_val=%d", band_name, blobmsg_get_u32(tb_band_metric[UCI_LOW_RCPI_VAL]));
+        uci_set_network(cmd_buffer);
+
+        sprintf(cmd_buffer, "dawn.%s.low_rcpi=%d", band_name, blobmsg_get_u32(tb_band_metric[UCI_LOW_RCPI]));
+        uci_set_network(cmd_buffer);
+
+        sprintf(cmd_buffer, "dawn.%s.rsni=%d", band_name, blobmsg_get_u32(tb_band_metric[UCI_RSNI]));
+        uci_set_network(cmd_buffer);
+
+        sprintf(cmd_buffer, "dawn.%s.rsni_val=%d", band_name, blobmsg_get_u32(tb_band_metric[UCI_RSNI_VAL]));
+        uci_set_network(cmd_buffer);
+
+        sprintf(cmd_buffer, "dawn.%s.low_rsni_val=%d", band_name, blobmsg_get_u32(tb_band_metric[UCI_LOW_RSNI_VAL]));
+        uci_set_network(cmd_buffer);
+
+        sprintf(cmd_buffer, "dawn.%s.low_rsni=%d", band_name, blobmsg_get_u32(tb_band_metric[UCI_LOW_RSNI]));
+        uci_set_network(cmd_buffer);
+
         sprintf(cmd_buffer, "dawn.%s.chan_util=%d", band_name, blobmsg_get_u32(tb_band_metric[UCI_CHAN_UTIL]));
         uci_set_network(cmd_buffer);
 
@@ -818,6 +866,18 @@ static int handle_uci_config(struct blob_attr* msg) {
         uci_set_network(cmd_buffer);
 
         sprintf(cmd_buffer, "dawn.%s.rssi_center=%d", band_name, blobmsg_get_u32(tb_band_metric[UCI_RSSI_CENTER]));
+        uci_set_network(cmd_buffer);
+
+        sprintf(cmd_buffer, "dawn.%s.rcpi_weight=%d", band_name, blobmsg_get_u32(tb_band_metric[UCI_RCPI_WEIGHT]));
+        uci_set_network(cmd_buffer);
+
+        sprintf(cmd_buffer, "dawn.%s.rcpi_center=%d", band_name, blobmsg_get_u32(tb_band_metric[UCI_RCPI_CENTER]));
+        uci_set_network(cmd_buffer);
+
+        sprintf(cmd_buffer, "dawn.%s.rsni_weight=%d", band_name, blobmsg_get_u32(tb_band_metric[UCI_RSNI_WEIGHT]));
+        uci_set_network(cmd_buffer);
+
+        sprintf(cmd_buffer, "dawn.%s.rsni_center=%d", band_name, blobmsg_get_u32(tb_band_metric[UCI_RSNI_CENTER]));
         uci_set_network(cmd_buffer);
     }
 

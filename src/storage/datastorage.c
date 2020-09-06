@@ -436,9 +436,24 @@ int eval_probe_metric(struct probe_entry_s* probe_entry, ap* ap_entry) {
     // TODO: Should RCPI be used here as well?
     band = get_band(probe_entry->freq);
     score = dawn_metric.initial_score[band];
-    score += probe_entry->signal >= dawn_metric.rssi_val[band] ? dawn_metric.rssi[band] : 0;
-    score += probe_entry->signal <= dawn_metric.low_rssi_val[band] ? dawn_metric.low_rssi[band] : 0;
-    score += (probe_entry->signal - dawn_metric.rssi_center[band]) * dawn_metric.rssi_weight[band];
+    if (probe_entry->rcpi != -1) // -1 currently magic number
+    {
+        score += (probe_entry->rcpi >= dawn_metric.rcpi_val[band]) ? dawn_metric.rcpi[band] : 0;
+        score += (probe_entry->rcpi <= dawn_metric.low_rcpi_val[band]) ? dawn_metric.low_rcpi[band] : 0;
+        score += (probe_entry->rcpi - dawn_metric.rcpi_center[band]) * dawn_metric.rcpi_weight[band];
+    }
+    else if(probe_entry->rsni != -1)
+    {
+        score += (probe_entry->rsni >= dawn_metric.rsni_val[band]) ? dawn_metric.rsni[band] : 0;
+        score += (probe_entry->rsni <= dawn_metric.low_rsni_val[band]) ? dawn_metric.low_rsni[band] : 0;
+        score += (probe_entry->rsni - dawn_metric.rsni_center[band]) * dawn_metric.rsni_weight[band];
+    }
+    else //rssi is just fallback
+    {
+        score += probe_entry->signal >= dawn_metric.rssi_val[band] ? dawn_metric.rssi[band] : 0;
+        score += probe_entry->signal <= dawn_metric.low_rssi_val[band] ? dawn_metric.low_rssi[band] : 0;
+        score += (probe_entry->signal - dawn_metric.rssi_center[band]) * dawn_metric.rssi_weight[band];
+    }
 
     // check if ap entry is available
     if (ap_entry != NULL) {
