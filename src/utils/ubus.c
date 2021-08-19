@@ -1360,7 +1360,6 @@ int uci_send_via_network()
     blob_buf_init(&b, 0);
     blobmsg_add_string(&b, "version", DAWN_CONFIG_VERSION);
     metric = blobmsg_open_table(&b, "metric");
-
     blobmsg_add_u32(&b, "min_probe_count", dawn_metric.min_probe_count);
     blobmsg_add_u32(&b, "bandwidth_threshold", dawn_metric.bandwidth_threshold);
     blobmsg_add_u32(&b, "use_station_count", dawn_metric.use_station_count);
@@ -1390,14 +1389,26 @@ int uci_send_via_network()
         blobmsg_add_u32(&b, "no_vht_support", dawn_metric.no_vht_support[band]);
         blobmsg_add_u32(&b, "rssi", dawn_metric.rssi[band]);
         blobmsg_add_u32(&b, "rssi_val", dawn_metric.rssi_val[band]);
+        blobmsg_add_u32(&b, "rcpi", dawn_metric.rcpi[band]);
+        blobmsg_add_u32(&b, "rcpi_val", dawn_metric.rcpi_val[band]);
+        blobmsg_add_u32(&b, "rsni", dawn_metric.rsni[band]);
+        blobmsg_add_u32(&b, "rsni_val", dawn_metric.rsni_val[band]);
         blobmsg_add_u32(&b, "low_rssi", dawn_metric.low_rssi[band]);
         blobmsg_add_u32(&b, "low_rssi_val", dawn_metric.low_rssi_val[band]);
+        blobmsg_add_u32(&b, "low_rcpi", dawn_metric.low_rcpi[band]);
+        blobmsg_add_u32(&b, "low_rcpi_val", dawn_metric.low_rcpi_val[band]);
+        blobmsg_add_u32(&b, "low_rsni", dawn_metric.low_rsni[band]);
+        blobmsg_add_u32(&b, "low_rsni_val", dawn_metric.low_rsni_val[band]);
         blobmsg_add_u32(&b, "chan_util", dawn_metric.chan_util[band]);
         blobmsg_add_u32(&b, "max_chan_util", dawn_metric.max_chan_util[band]);
         blobmsg_add_u32(&b, "chan_util_val", dawn_metric.chan_util_val[band]);
         blobmsg_add_u32(&b, "max_chan_util_val", dawn_metric.max_chan_util_val[band]);
         blobmsg_add_u32(&b, "rssi_weight", dawn_metric.rssi_weight[band]);
         blobmsg_add_u32(&b, "rssi_center", dawn_metric.rssi_center[band]);
+        blobmsg_add_u32(&b, "rcpi_weight", dawn_metric.rcpi_weight[band]);
+        blobmsg_add_u32(&b, "rcpi_center", dawn_metric.rcpi_center[band]);
+        blobmsg_add_u32(&b, "rsni_weight", dawn_metric.rsni_weight[band]);
+        blobmsg_add_u32(&b, "rsni_center", dawn_metric.rsni_center[band]);
         blobmsg_close_table(&b, band_entry);
     }
     blobmsg_close_table(&b, band_table);

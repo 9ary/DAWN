@@ -244,6 +244,10 @@ struct probe_metric_s uci_get_dawn_metric() {
         .no_vht_support = { 0, 0 },
         .rssi = { 10, 10 },
         .rssi_val = { -60, -60 },
+        .rcpi = { 10, 10 },
+        .rcpi_val = { 50, 50 },
+        .rsni = { 10, 10 },
+        .rsni_val = { 50, 50 },
         .initial_score = { 0, 100 },
         .chan_util = { 0, 0 },
         .max_chan_util = { -500, -500 },
@@ -251,6 +255,10 @@ struct probe_metric_s uci_get_dawn_metric() {
         .max_chan_util_val = { 170, 170 },
         .low_rssi = { -500, -500 },
         .low_rssi_val = { -80, -80 },
+        .low_rcpi = { -500, -500 },
+        .low_rcpi_val = { 150, 150 },
+        .low_rsni = { -500, -500 },
+        .low_rsni_val = { 150, 150 },
     };
     struct uci_section *global_s, *band_s[__DAWN_BAND_MAX];
     struct uci_option *global_neighbors = NULL, *neighbors;
@@ -300,14 +308,26 @@ struct probe_metric_s uci_get_dawn_metric() {
     DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, no_vht_support);
     DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, rssi);
     DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, rssi_val);
+    DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, rcpi);
+    DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, rcpi_val);
+    DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, rsni);
+    DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, rsni_val);
     DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, chan_util);
     DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, max_chan_util);
     DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, chan_util_val);
     DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, max_chan_util_val);
     DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, low_rssi);
     DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, low_rssi_val);
+    DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, low_rcpi);
+    DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, low_rcpi_val);
+    DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, low_rsni);
+    DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, low_rsni_val);
     DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, rssi_weight);
     DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, rssi_center);
+    DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, rcpi_weight);
+    DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, rcpi_center);
+    DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, rsni_weight);
+    DAWN_SET_BANDS_CONFIG_INT(ret, global_s, band_s, rsni_center);
     return ret;
 }
 
