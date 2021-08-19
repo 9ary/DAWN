@@ -707,7 +707,7 @@ static const struct blobmsg_policy uci_metric_policy[__UCI_METRIC_MAX] = {
         [UCI_BAND_METRICS] = {.name = "band_metrics", .type = BLOBMSG_TYPE_TABLE},
 };
 
-static const struct blobmsg_policy uci_band_metric_policy[__UCI_METRIC_MAX] = {
+static const struct blobmsg_policy uci_band_metric_policy[__UCI_BAND_METRIC_MAX] = {
         [UCI_INITIAL_SCORE] = {.name = "initial_score", .type = BLOBMSG_TYPE_INT32},
         [UCI_HT_SUPPORT] = {.name = "ht_support", .type = BLOBMSG_TYPE_INT32},
         [UCI_VHT_SUPPORT] = {.name = "vht_support", .type = BLOBMSG_TYPE_INT32},
